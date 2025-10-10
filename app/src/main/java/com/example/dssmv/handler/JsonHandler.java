@@ -1,10 +1,6 @@
 package com.example.dssmv.handler;
 
-import com.example.dssmv_projectdroid_1200968_1221392.dto.*;
-import com.example.dssmv_projectdroid_1200968_1221392.model.Book;
-import com.example.dssmv_projectdroid_1200968_1221392.model.Library;
-import com.example.dssmv_projectdroid_1200968_1221392.model.LibraryBook;
-import com.example.dssmv_projectdroid_1200968_1221392.model.Review;
+import com.example.dssmv.dtos.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
