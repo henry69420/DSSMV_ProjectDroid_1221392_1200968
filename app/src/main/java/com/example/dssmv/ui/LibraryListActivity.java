@@ -31,7 +31,7 @@ public class LibraryListActivity extends AppCompatActivity {
     }
 
     private void loadLibraries() {
-        RequestsService.getLibraries(this, new LibraryListCallback() {
+        RequestsService.getLibraries(this, new RequestsService.LibraryListCallback() {
             @Override
             public void onSuccess(List<Library> libraries) {
                 if (libraries.isEmpty()) {
