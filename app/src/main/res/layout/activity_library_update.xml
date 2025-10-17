@@ -1,45 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:background="@drawable/bg_modern">
 
-    <EditText
-            android:id="@+id/editTextName"
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Library Name"/>
+            android:layout_margin="16dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
 
-    <EditText
-            android:id="@+id/editTextAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Library Address"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-    <EditText
-            android:id="@+id/editTextOpenDays"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Open Days"/>
+            <!-- Título -->
 
-    <TimePicker
-            android:id="@+id/editOpenTimePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:timePickerMode="spinner" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update Library"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#1F2937"
+                    android:paddingBottom="4dp"/>
+            <View
+                    android:layout_width="48dp"
+                    android:layout_height="3dp"
+                    android:background="#22C55E"
+                    android:layout_marginBottom="12dp"/>
 
-    <TimePicker
-            android:id="@+id/editCloseTimePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:timePickerMode="spinner" />
+            <!-- Nome -->
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Library Name">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-            android:id="@+id/btnUpdate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Update Library"/>
+            <!-- Morada -->
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Library Address"
+                    android:layout_marginTop="8dp">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+            <!-- Dias abertos -->
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Open Days (e.g., Mon–Fri)"
+                    android:layout_marginTop="8dp">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextOpenDays"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Horários -->
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Schedule"
+                    android:textStyle="bold"
+                    android:textColor="#374151"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingEnd="6dp">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Open time"
+                            android:textColor="#6B7280"
+                            android:textSize="12sp"/>
+
+                    <TimePicker
+                            android:id="@+id/editOpenTimePicker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:timePickerMode="spinner"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="6dp">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Close time"
+                            android:textColor="#6B7280"
+                            android:textSize="12sp"/>
+
+                    <TimePicker
+                            android:id="@+id/editCloseTimePicker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:timePickerMode="spinner"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Botão -->
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Update Library"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="16dp"
+                    app:cornerRadius="14dp"
+                    app:backgroundTint="#22C55E"
+                    android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</ScrollView>
