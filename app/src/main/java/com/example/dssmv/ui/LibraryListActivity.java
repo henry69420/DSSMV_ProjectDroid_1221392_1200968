@@ -57,19 +57,19 @@ public class LibraryListActivity extends AppCompatActivity {
     private void setupRecyclerView() {
         LibraryAdapter  adapter = new LibraryAdapter(libraryList, new LibraryAdapter.LibraryClickListener() {
 
-          /*  public void onUpdateClick(String libraryId) {
+            public void onUpdateClick(String libraryId) {
                 onUpdateLibrary(libraryId);
             }
 
             @Override
             public void onDeleteClick(String libraryId) {
                 onDeleteLibrary(libraryId);
-            }*/
+            }
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-/*
+
     public void onUpdateLibrary(String libraryId) {
         Intent intent = new Intent(this, UpdateLibraryActivity.class);
         intent.putExtra("libraryId", libraryId);
@@ -97,5 +97,5 @@ public class LibraryListActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("No", null)
                 .show();
-    }*/
+    }
 }
