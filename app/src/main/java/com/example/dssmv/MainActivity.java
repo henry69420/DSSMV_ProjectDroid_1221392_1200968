@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button librariesButton = findViewById(R.id.btnLibraries);
+        Button booksButton = findViewById(R.id.btnSearchBooks);
         if (librariesButton != null) {
-            librariesButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openLibraries();
-                }
-            });
+            librariesButton.setOnClickListener(v -> openLibraries());
         }
+        if (booksButton != null) {
+            booksButton.setOnClickListener(v -> openBookSearch());
+        }
+
     }
 
     private void openLibraries() {
