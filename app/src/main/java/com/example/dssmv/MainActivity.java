@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dssmv.ui.BookSearchActivity;
 import com.example.dssmv.ui.LibraryListActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openLibraries() {
         Intent intent = new Intent(this, LibraryListActivity.class);
+        startActivity(intent);
+    }
+    private void openBookSearch() {
+        Intent intent = new Intent(this, BookSearchActivity.class);
         startActivity(intent);
     }
 }
