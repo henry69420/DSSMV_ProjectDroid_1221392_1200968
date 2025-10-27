@@ -18,6 +18,10 @@ public class LibraryBook {
         this.library = library;
     }
 
+    public LibraryBook() {
+
+    }
+
     public String getIsbn() {
         return isbn;
     }

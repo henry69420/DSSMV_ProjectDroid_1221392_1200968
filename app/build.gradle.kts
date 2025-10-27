@@ -43,5 +43,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation ("androidx.recyclerview:recyclerview:1.4.0")
     implementation ("androidx.recyclerview:recyclerview-selection:1.2.0")
+    implementation ("androidx.cardview:cardview:1.0.0")
 
 }

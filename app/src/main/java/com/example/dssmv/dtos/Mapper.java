@@ -5,6 +5,7 @@ import com.example.dssmv.model.*;
 import com.example.dssmv.dtos.*;
 
 import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -354,6 +355,51 @@ public class Mapper {
         List<CheckoutDto> data = new ArrayList<>();
         for(Checkout obj : list) {
             CheckoutDto i = checkout2CheckoutDTO(obj);
+            data.add(i);
+        }
+        return data;
+    }
+
+    public static Checkout checkedOutBookDto2Checkout(CheckedOutBookDto obj) throws NullPointerException {
+        Checkout data = new Checkout();
+        data.setId(obj.getId());
+        data.setUserId(obj.getUserId());
+        data.setActive(obj.isActive());
+        
+        // Convert string dates to LocalDateTime
+        if (obj.getDueDate() != null) {
+            data.setDueDate(LocalDateTime.parse(obj.getDueDate()));
+        }
+        if (obj.getCreateTimestamp() != null) {
+            data.setCreateTimestamp(LocalDateTime.parse(obj.getCreateTimestamp()));
+        }
+        if (obj.getUpdateTimestamp() != null) {
+            data.setUpdateTimestamp(LocalDateTime.parse(obj.getUpdateTimestamp()));
+        }
+        
+        // Create LibraryBook from the CheckedOutBookDto
+        LibraryBook libraryBook = new LibraryBook();
+        libraryBook.setIsbn(obj.getBookId());
+        
+        // Set the book
+        Book book = bookDTO2Book(obj.getBook());
+        libraryBook.setBook(book);
+        
+        // Create library from the DTO fields
+        Library library = new Library();
+        library.setId(obj.getLibraryId());
+        library.setName(obj.getLibraryName());
+        library.setAddress(obj.getLibraryAddress());
+        libraryBook.setLibrary(library);
+        
+        data.setBook(libraryBook);
+        return data;
+    }
+
+    public static List<Checkout> listCheckedOutBookDto2ListCheckout(List<CheckedOutBookDto> list) throws NullPointerException {
+        List<Checkout> data = new ArrayList<>();
+        for(CheckedOutBookDto obj : list) {
+            Checkout i = checkedOutBookDto2Checkout(obj);
             data.add(i);
         }
         return data;

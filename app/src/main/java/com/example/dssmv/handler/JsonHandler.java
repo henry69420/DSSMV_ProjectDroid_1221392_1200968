@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.ArrayList;
 
 public class JsonHandler {
     private static Gson gson = new Gson();
@@ -64,8 +65,21 @@ public class JsonHandler {
 
 
     public static List<CheckoutDto> deserializeJson2ListCheckoutDto(String json) {
+        if (json == null || json.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
         Type listType = new TypeToken<List<CheckoutDto>>() {}.getType();
-        return gson.fromJson(json, listType);
+        List<CheckoutDto> result = gson.fromJson(json, listType);
+        return result != null ? result : new ArrayList<>();
+    }
+
+    public static List<CheckedOutBookDto> deserializeJson2ListCheckedOutBookDto(String json) {
+        if (json == null || json.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+        Type listType = new TypeToken<List<CheckedOutBookDto>>() {}.getType();
+        List<CheckedOutBookDto> result = gson.fromJson(json, listType);
+        return result != null ? result : new ArrayList<>();
     }
 
 

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dssmv.ui.BookSearchActivity;
 import com.example.dssmv.ui.LibraryListActivity;
+import com.example.dssmv.ui.CheckedOutBooksActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,11 +20,16 @@ public class MainActivity extends AppCompatActivity {
 
         Button librariesButton = findViewById(R.id.btnLibraries);
         Button booksButton = findViewById(R.id.btnSearchBooks);
+        Button checkedOutBooksButton = findViewById(R.id.btnCheckedOutBooks);
+        
         if (librariesButton != null) {
             librariesButton.setOnClickListener(v -> openLibraries());
         }
         if (booksButton != null) {
             booksButton.setOnClickListener(v -> openBookSearch());
+        }
+        if (checkedOutBooksButton != null) {
+            checkedOutBooksButton.setOnClickListener(v -> openCheckedOutBooks());
         }
 
     }
@@ -34,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
     }
     private void openBookSearch() {
         Intent intent = new Intent(this, BookSearchActivity.class);
+        startActivity(intent);
+    }
+    
+    private void openCheckedOutBooks() {
+        Intent intent = new Intent(this, CheckedOutBooksActivity.class);
         startActivity(intent);
     }
 }

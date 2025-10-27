@@ -16,6 +16,7 @@ import com.example.dssmv.dtos.*;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import android.os.Handler;
@@ -389,6 +390,93 @@ public class RequestsService {
 
                 LibraryDto updatedLibrary = JsonHandler.deserializeJson2LibraryDto(jsonResponse);
                 handler.post(() -> callback.onSuccess(updatedLibrary));
+            } catch (Exception e) {
+                e.printStackTrace();
+                handler.post(() -> callback.onError(e));
+            }
+        });
+    }
+
+
+    public interface CheckedOutBooksCallback {
+        void onSuccess(List<Checkout> checkouts);
+        void onError(Exception e);
+    }
+
+    public interface CheckInCallback {
+        void onSuccess();
+        void onError(Exception e);
+    }
+
+    public interface ExtendCheckoutCallback {
+        void onSuccess();
+        void onError(Exception e);
+    }
+
+    public static void getCheckedOutBooks(String userId, Context context, CheckedOutBooksCallback callback) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                String url = Utils.getWSAddress(context) + "user/checked-out?userId=" + userId;
+                String json = NetworkHandler.getDataInStringFromUrl(url);
+                lastUrl = url;
+                
+                Log.d("API Response", "URL: " + url);
+                Log.d("API Response", "JSON: " + json);
+                
+                List<CheckedOutBookDto> checkedOutBookDtos = JsonHandler.deserializeJson2ListCheckedOutBookDto(json);
+                
+
+                if (checkedOutBookDtos == null) {
+                    Log.d("API Response", "checkedOutBookDtos is null, returning empty list");
+                    handler.post(() -> callback.onSuccess(new ArrayList<>()));
+                    return;
+                }
+                
+                Log.d("API Response", "Found " + checkedOutBookDtos.size() + " checked out books");
+                List<Checkout> checkouts = Mapper.listCheckedOutBookDto2ListCheckout(checkedOutBookDtos);
+                
+                handler.post(() -> callback.onSuccess(checkouts));
+            } catch (Exception e) {
+                e.printStackTrace();
+                handler.post(() -> callback.onError(e));
+            }
+        });
+    }
+
+
+    public static void checkInBook(String libraryId, String isbn, String userId, Context context, CheckInCallback callback) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                String url = Utils.getWSAddress(context) + "library/" + libraryId + "/book/" + isbn + "/checkin?userId=" + userId;
+                String result = NetworkHandler.addDataInStringFromUrl(url, null);
+                lastUrl = url;
+                
+                handler.post(() -> callback.onSuccess());
+            } catch (Exception e) {
+                e.printStackTrace();
+                handler.post(() -> callback.onError(e));
+            }
+        });
+    }
+
+
+    public static void extendCheckout(String checkoutId, Context context, ExtendCheckoutCallback callback) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                String url = Utils.getWSAddress(context) + "checkout/" + checkoutId + "/extend";
+                String result = NetworkHandler.addDataInStringFromUrl(url, null);
+                lastUrl = url;
+                
+                handler.post(() -> callback.onSuccess());
             } catch (Exception e) {
                 e.printStackTrace();
                 handler.post(() -> callback.onError(e));

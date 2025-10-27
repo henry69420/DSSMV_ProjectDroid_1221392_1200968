@@ -24,6 +24,9 @@ public class Library {
         this.openStatement = openStatement;
     }
 
+    public Library() {
+
+    }
 
 
     public String getId() {
