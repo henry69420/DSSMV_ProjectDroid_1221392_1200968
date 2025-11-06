@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
         Button librariesButton = findViewById(R.id.btnLibraries);
         Button booksButton = findViewById(R.id.btnSearchBooks);
         Button checkedOutBooksButton = findViewById(R.id.btnCheckedOutBooks);
-        
+        //btnAddLibrary
+
         if (librariesButton != null) {
             librariesButton.setOnClickListener(v -> openLibraries());
         }
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BookSearchActivity.class);
         startActivity(intent);
     }
-    
+
     private void openCheckedOutBooks() {
         Intent intent = new Intent(this, CheckedOutBooksActivity.class);
         startActivity(intent);
