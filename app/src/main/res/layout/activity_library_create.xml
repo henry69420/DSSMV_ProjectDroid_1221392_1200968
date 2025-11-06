@@ -111,9 +111,9 @@
 
                         <TimePicker
                                 android:id="@+id/openTimePicker"
-                                android:layout_width="match_parent"  android:layout_height="wrap_content"
-                                android:timePickerMode="spinner"
-                                android:is24HourView="true"/>
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:timePickerMode="spinner"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -133,9 +133,9 @@
 
                         <TimePicker
                                 android:id="@+id/closeTimePicker"
-                                android:layout_width="match_parent"  android:layout_height="wrap_content"
-                                android:timePickerMode="spinner"
-                                android:is24HourView="true"/>
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:timePickerMode="spinner"/>
                     </LinearLayout>
                 </LinearLayout>
 
