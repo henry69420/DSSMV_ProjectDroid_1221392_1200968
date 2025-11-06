@@ -66,13 +66,13 @@ public class CheckedOutBooksActivity extends AppCompatActivity implements Checke
     }
     
     private void setupRecyclerViews() {
-        // Main books recycler view
+
         adapter = new CheckedOutBooksAdapter(checkedOutBooks, this, this);
         booksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         booksRecyclerView.setAdapter(adapter);
         
-        // Recent searches recycler view
-        recentSearchesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        recentSearchesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
     
     private void setupClickListeners() {
@@ -102,20 +102,20 @@ public class CheckedOutBooksActivity extends AppCompatActivity implements Checke
     
     private void setupRecentSearchesRecyclerView() {
         List<String> searchesList = new ArrayList<>(recentSearches);
-        // Limit to 5 recent searches
+
         if (searchesList.size() > 5) {
             searchesList = searchesList.subList(0, 5);
         }
         
-        // Make the list final for use in inner class
+
         final List<String> finalSearchesList = searchesList;
         
-        // Create a simple adapter for recent searches
+
         androidx.recyclerview.widget.RecyclerView.Adapter<RecentSearchViewHolder> recentAdapter = 
             new androidx.recyclerview.widget.RecyclerView.Adapter<RecentSearchViewHolder>() {
                 @Override
                 public RecentSearchViewHolder onCreateViewHolder(android.view.ViewGroup parent, int viewType) {
-                    View view = getLayoutInflater().inflate(android.R.layout.simple_list_item_1, parent, false);
+                    View view = getLayoutInflater().inflate(R.layout.item_recent_search, parent, false);
                     return new RecentSearchViewHolder(view);
                 }
                 
@@ -144,7 +144,7 @@ public class CheckedOutBooksActivity extends AppCompatActivity implements Checke
         
         public RecentSearchViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView;
+            textView = itemView.findViewById(R.id.recent_search_text);
         }
     }
     
@@ -171,6 +171,8 @@ public class CheckedOutBooksActivity extends AppCompatActivity implements Checke
                     checkedOutBooks.clear();
                     checkedOutBooks.addAll(checkouts);
                     adapter.notifyDataSetChanged();
+
+                    searchSection.setVisibility(View.GONE);
                     
                     if (checkouts.isEmpty()) {
                         showEmptyState(true);
@@ -260,5 +262,25 @@ public class CheckedOutBooksActivity extends AppCompatActivity implements Checke
                 });
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (booksRecyclerView.getVisibility() == View.VISIBLE || emptyState.getVisibility() == View.VISIBLE) {
+
+            searchSection.setVisibility(View.VISIBLE);
+
+
+            booksRecyclerView.setVisibility(View.GONE);
+            emptyState.setVisibility(View.GONE);
+
+
+            userIdInput.setText("");
+
+
+        } else {
+
+            super.onBackPressed();
+        }
     }
 }
