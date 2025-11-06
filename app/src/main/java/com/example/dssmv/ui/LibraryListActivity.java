@@ -27,7 +27,7 @@ public class LibraryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_library_list);
 
         recyclerView = findViewById(R.id.recyclerView);
-        loadLibraries();
+        //loadLibraries();
     }
 
     private void loadLibraries() {
@@ -71,9 +71,30 @@ public class LibraryListActivity extends AppCompatActivity {
     }
 
     public void onUpdateLibrary(String libraryId) {
-        Intent intent = new Intent(this, UpdateLibraryActivity.class);
-        intent.putExtra("libraryId", libraryId);
-        startActivity(intent);
+        Library libraryToUpdate = null;
+        for (Library library : libraryList) {
+            if (library.getId().equals(libraryId)) {
+                libraryToUpdate = library;
+                break;
+            }
+        }
+
+        // 2. Check if found and launch activity
+        if (libraryToUpdate != null) {
+            Intent intent = new Intent(this, UpdateLibraryActivity.class);
+
+            // 💡 CRITICAL: Pass all necessary data for pre-population
+            intent.putExtra("libraryId", libraryToUpdate.getId());
+            intent.putExtra("libraryName", libraryToUpdate.getName());
+            intent.putExtra("libraryAddress", libraryToUpdate.getAddress());
+            intent.putExtra("libraryOpenDays", libraryToUpdate.getOpenDays());
+            intent.putExtra("libraryOpenTime", libraryToUpdate.getOpenTime());
+            intent.putExtra("libraryCloseTime", libraryToUpdate.getCloseTime());
+
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Library details not found locally.", Toast.LENGTH_SHORT).show();
+        }
     }
     public void onDeleteLibrary(String libraryId) {
 
@@ -97,5 +118,10 @@ public class LibraryListActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadLibraries();
     }
 }

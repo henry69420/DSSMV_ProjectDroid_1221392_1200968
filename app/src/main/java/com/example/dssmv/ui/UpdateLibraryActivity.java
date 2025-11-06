@@ -1,5 +1,6 @@
 package com.example.dssmv.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library_update);
 
+        Intent intent = getIntent();
         libraryId = getIntent().getStringExtra("libraryId");
 
         editTextName = findViewById(R.id.editTextName);
@@ -26,6 +28,32 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         editOpenTimePicker = findViewById(R.id.editOpenTimePicker);
         editCloseTimePicker = findViewById(R.id.editCloseTimePicker);
         btnUpdate = findViewById(R.id.btnUpdate);
+        editCloseTimePicker.setIs24HourView(true);
+        editOpenTimePicker.setIs24HourView(true);
+
+        String currentName = intent.getStringExtra("libraryName");
+        String currentAddress = intent.getStringExtra("libraryAddress");
+        String currentOpenDays = intent.getStringExtra("libraryOpenDays");
+        String currentOpenTime = intent.getStringExtra("libraryOpenTime");
+        String currentCloseTime = intent.getStringExtra("libraryCloseTime");
+
+
+        if (currentName != null) editTextName.setText(currentName);
+        if (currentAddress != null) editTextAddress.setText(currentAddress);
+        if (currentOpenDays != null) editTextOpenDays.setText(currentOpenDays);
+
+
+        if (currentOpenTime != null && currentOpenTime.contains(":")) {
+            String[] parts = currentOpenTime.split(":");
+            editOpenTimePicker.setHour(Integer.parseInt(parts[0]));
+            editOpenTimePicker.setMinute(Integer.parseInt(parts[1]));
+        }
+
+        if (currentCloseTime != null && currentCloseTime.contains(":")) {
+            String[] parts = currentCloseTime.split(":");
+            editCloseTimePicker.setHour(Integer.parseInt(parts[0]));
+            editCloseTimePicker.setMinute(Integer.parseInt(parts[1]));
+        }
 
         btnUpdate.setOnClickListener(v -> updateLibrary());
     }
