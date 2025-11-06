@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dssmv.ui.BookSearchActivity;
+import com.example.dssmv.ui.CreateLibraryActivity;
 import com.example.dssmv.ui.LibraryListActivity;
 import com.example.dssmv.ui.CheckedOutBooksActivity;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         Button librariesButton = findViewById(R.id.btnLibraries);
         Button booksButton = findViewById(R.id.btnSearchBooks);
         Button checkedOutBooksButton = findViewById(R.id.btnCheckedOutBooks);
-        //btnAddLibrary
+        Button addLibraryButton = findViewById(R.id.btnAddLibrary);
 
         if (librariesButton != null) {
             librariesButton.setOnClickListener(v -> openLibraries());
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (checkedOutBooksButton != null) {
             checkedOutBooksButton.setOnClickListener(v -> openCheckedOutBooks());
+        }
+        if (addLibraryButton != null) {
+            addLibraryButton.setOnClickListener(v -> openAddLibraryButton());
         }
 
     }
@@ -46,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openCheckedOutBooks() {
         Intent intent = new Intent(this, CheckedOutBooksActivity.class);
+        startActivity(intent);
+    }
+    private void openAddLibraryButton() {
+        Intent intent = new Intent(this, CreateLibraryActivity.class);
         startActivity(intent);
     }
 }
