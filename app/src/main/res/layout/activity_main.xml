@@ -118,7 +118,22 @@
                     app:backgroundTint="#2196F3"
                     app:rippleColor="@color/m3_ref_palette_dynamic_neutral10"/>
 
-            <!-- Delete Library -->
+
+            <!-- Library locations(maps) -->
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLibraryLocations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Library Locations"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="12dp"
+                    android:insetTop="12dp"
+                    android:insetBottom="12dp"
+                    app:cornerRadius="16dp"
+                    app:elevation="2dp"
+                    app:backgroundTint="#EF4444"
+                    app:rippleColor="@color/m3_ref_palette_dynamic_neutral10"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

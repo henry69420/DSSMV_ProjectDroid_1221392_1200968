@@ -7,10 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.dssmv.ui.BookSearchActivity;
-import com.example.dssmv.ui.CreateLibraryActivity;
-import com.example.dssmv.ui.LibraryListActivity;
-import com.example.dssmv.ui.CheckedOutBooksActivity;
+import com.example.dssmv.ui.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         Button booksButton = findViewById(R.id.btnSearchBooks);
         Button checkedOutBooksButton = findViewById(R.id.btnCheckedOutBooks);
         Button addLibraryButton = findViewById(R.id.btnAddLibrary);
+        Button libraryLocationsButton = findViewById(R.id.btnLibraryLocations);
 
         if (librariesButton != null) {
             librariesButton.setOnClickListener(v -> openLibraries());
@@ -35,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (addLibraryButton != null) {
             addLibraryButton.setOnClickListener(v -> openAddLibraryButton());
+        }
+        if (libraryLocationsButton != null) {
+            libraryLocationsButton.setOnClickListener(v -> openLibraryLocations());
         }
 
     }
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
     }
     private void openAddLibraryButton() {
         Intent intent = new Intent(this, CreateLibraryActivity.class);
+        startActivity(intent);
+    }
+    private void openLibraryLocations() {
+        Intent intent = new Intent(this, LibraryMapActivity.class);
         startActivity(intent);
     }
 }
