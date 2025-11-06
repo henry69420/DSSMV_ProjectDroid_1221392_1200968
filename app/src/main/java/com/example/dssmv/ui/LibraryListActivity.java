@@ -79,11 +79,10 @@ public class LibraryListActivity extends AppCompatActivity {
             }
         }
 
-        // 2. Check if found and launch activity
+
         if (libraryToUpdate != null) {
             Intent intent = new Intent(this, UpdateLibraryActivity.class);
 
-            // 💡 CRITICAL: Pass all necessary data for pre-population
             intent.putExtra("libraryId", libraryToUpdate.getId());
             intent.putExtra("libraryName", libraryToUpdate.getName());
             intent.putExtra("libraryAddress", libraryToUpdate.getAddress());
