@@ -29,6 +29,7 @@
         <activity android:name=".ui.BookDetailActivity"/>
         <activity android:name=".ui.BookSearchActivity"/>
         <activity android:name=".ui.CheckedOutBooksActivity"/>
+        <activity android:name=".ui.CreateLibraryActivity" />
     </application>
 
 </manifest>
