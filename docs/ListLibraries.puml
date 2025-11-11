@@ -1,0 +1,10 @@
+@startuml
+autonumber
+
+participant "User" as User
+participant "System" as System
+
+User -> System: Solicitar Lista de Bibliotecas
+System --> User: Apresentar Lista de Bibliotecas
+
+@enduml

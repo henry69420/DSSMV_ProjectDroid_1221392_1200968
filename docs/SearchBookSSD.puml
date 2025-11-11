@@ -1,0 +1,48 @@
+@startuml
+title UC1 - Pesquisar Livros (Search Books)
+autonumber
+
+participant "User" as User
+participant "BookSearchActivity" as UI <<Activity>>
+participant "RequestsService" as Service <<Java Class>>
+participant "NetworkHandler" as Network <<Java Class>>
+database "API/Backend (GET /search)" as Backend
+
+User -> UI : Insere Query e Clica em "Search"
+activate UI
+UI -> Service : searchBooks(query, callback: BookSearchCallback)
+activate Service
+Service -> Service : ExecutorService.execute()
+
+group Requisição Assíncrona (Background Thread)
+    Service -> Network : getDataInStringFromUrl(url: "/search?query=...")
+    activate Network
+    Network -> Backend : HTTP GET /search?query=...
+    activate Backend
+    Backend --> Network : Retorna JSON (List<BookDto>)
+    deactivate Backend
+    Network --> Service : JSON Response (String)
+    deactivate Network
+
+    Service -> Service : JsonHandler.deserializeJson2ListBookDto(json)
+    Service -> Service : Mapper.listBookDTO2ListBook(dtos)
+
+    alt Success
+        Service -> UI : Handler.post(onSuccess(List<Book>))
+    else Error
+        Service -> UI : Handler.post(onError(Exception))
+    end
+end
+
+deactivate Service
+
+alt Success
+    UI -> UI : setupRecyclerView(books)
+    UI -> User : Displays list of books
+else Error
+    UI -> User : Displays Toast("Error:...")
+end
+
+deactivate UI
+
+@enduml

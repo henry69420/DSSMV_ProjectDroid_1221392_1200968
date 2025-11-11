@@ -1,0 +1,11 @@
+@startuml
+autonumber
+
+participant "User" as User
+participant "System" as System
+
+User -> System: Selecionar Check-in para Livro Y
+System --> User: Confirmação da Devolução
+System -> System: Atualizar a Lista de Requisições
+
+@enduml

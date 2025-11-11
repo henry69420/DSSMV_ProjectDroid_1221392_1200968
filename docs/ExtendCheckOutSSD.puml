@@ -1,0 +1,45 @@
+@startuml
+title UC8 - Estender Requisição (Extend Checkout)
+autonumber
+
+participant "User" as User
+participant "CheckedOutBooksActivity" as UI <<Activity>>
+participant "RequestsService" as Service <<Java Class>>
+participant "NetworkHandler" as Network <<Java Class>>
+database "API/Backend (POST /extend)" as Backend
+
+User -> UI : Clica em "Extend Checkout" para Checkout X
+activate UI
+UI -> Service : extendCheckout(checkoutId, callback)
+activate Service
+Service -> Service : ExecutorService.execute()
+
+group Requisição Assíncrona (Background Thread)
+    Service -> Network : addDataInStringFromUrl(url: "/checkout/{id}/extend", body: null)
+    activate Network
+    Network -> Backend : HTTP POST /checkout/{id}/extend
+    activate Backend
+    Backend --> Network : 200 OK (Empty Response)
+    deactivate Backend
+    Network --> Service : Response (String)
+    deactivate Network
+
+    alt Success
+        Service -> UI : Handler.post(onSuccess())
+    else Error
+        Service -> UI : Handler.post(onError(Exception))
+    end
+end
+
+deactivate Service
+
+alt Success
+    UI -> User : Displays Toast("Checkout extended successfully")
+    UI -> UI : searchCheckedOutBooks() (Recarrega Lista)
+else Error
+    UI -> User : Displays Toast("Failed to extend...")
+end
+
+deactivate UI
+
+@enduml

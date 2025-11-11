@@ -1,0 +1,45 @@
+@startuml
+title UC7 - Devolver Livro (Check-in)
+autonumber
+
+participant "User" as User
+participant "CheckedOutBooksActivity" as UI <<Activity>>
+participant "RequestsService" as Service <<Java Class>>
+participant "NetworkHandler" as Network <<Java Class>>
+database "API/Backend (POST /checkin)" as Backend
+
+User -> UI : Clica em "Check-In Book" para Checkout X
+activate UI
+UI -> Service : checkInBook(libId, isbn, userId, callback)
+activate Service
+Service -> Service : ExecutorService.execute()
+
+group Requisição Assíncrona (Background Thread)
+    Service -> Network : addDataInStringFromUrl(url: "/library/{id}/book/{isbn}/checkin?userId=...", body: null)
+    activate Network
+    Network -> Backend : HTTP POST /checkin
+    activate Backend
+    Backend --> Network : 200 OK (Empty Response)
+    deactivate Backend
+    Network --> Service : Response (String)
+    deactivate Network
+
+    alt Success
+        Service -> UI : Handler.post(onSuccess())
+    else Error
+        Service -> UI : Handler.post(onError(Exception))
+    end
+end
+
+deactivate Service
+
+alt Success
+    UI -> User : Displays Toast("Book checked in successfully")
+    UI -> UI : searchCheckedOutBooks() (Recarrega Lista)
+else Error
+    UI -> User : Displays Toast("Failed to check in...")
+end
+
+deactivate UI
+
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+autonumber
+
+participant "User" as User
+participant "System" as System
+
+User -> System: Abrir Ecrã de Localizações
+System -> System: Ativar GPS e Obter Coordenadas do User
+System -> System: Geocodificar Endereços das Bibliotecas
+System --> User: Apresentar Mapa (Focado na Biblioteca Mais Próxima)
+
+@enduml

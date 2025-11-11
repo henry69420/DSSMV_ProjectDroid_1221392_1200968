@@ -1,0 +1,11 @@
+@startuml
+autonumber
+
+participant "User" as User
+participant "System" as System
+
+User -> System: Solicitar Edição da Biblioteca X
+User -> System: Submeter Dados Atualizados
+System --> User: Confirmação de Atualização
+
+@enduml

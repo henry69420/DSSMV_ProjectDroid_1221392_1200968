@@ -1,0 +1,11 @@
+@startuml
+autonumber
+
+participant "User" as User
+participant "System" as System
+
+User -> System: Solicitar Extensão do Prazo (no Livro X)
+System --> User: Confirmação do Novo Prazo (ou Erro de Elegibilidade)
+System -> System: Atualizar a Lista de Requisições
+
+@enduml

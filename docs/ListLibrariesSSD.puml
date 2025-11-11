@@ -1,0 +1,59 @@
+@startuml
+title UC2 - Listar Bibliotecas (List Libraries)
+autonumber
+
+participant "User" as User
+participant "LibraryListActivity" as UI
+participant "RequestsService" as Service
+participant "NetworkHandler" as Network
+database "API/Backend (GET /library)" as Backend
+
+User -> UI : Opens Libraries screen
+activate UI
+UI -> UI : onResume() / loadLibraries()
+
+note right of UI
+A requisição é feita
+em uma thread de fundo
+para evitar bloqueio da UI
+end note
+
+UI -> Service : getLibraries(callback: LibraryListCallback)
+activate Service
+Service -> Service : ExecutorService.execute()
+
+group Requisição Assíncrona (Background Thread)
+    Service -> Network : getDataInStringFromUrl(url: "/library")
+    activate Network
+    Network -> Backend : HTTP GET /library
+    activate Backend
+    Backend --> Network : Retorna JSON (List<LibraryDto>)
+    deactivate Backend
+    Network --> Service : JSON Response (String)
+    deactivate Network
+
+    Service -> Service : JsonHandler.deserializeJson2ListLibraryDto(json)
+    Service -> Service : Mapper.listLibraryDTO2ListLibrary(dtos)
+
+    alt Success
+        Service -> UI : Handler.post(onSuccess(List<Library>))
+    else Error
+        Service -> UI : Handler.post(onError(Exception))
+    end
+end
+
+deactivate Service
+
+alt Success
+    UI -> UI : onSuccess(libraries)
+    UI -> UI : setupRecyclerView(libraries)
+    UI -> UI : Adapter.notifyDataSetChanged()
+    UI -> User : Displays list of libraries
+else Error
+    UI -> UI : onError(Exception e)
+    UI -> User : Displays Toast with error message
+end
+
+deactivate UI
+
+@enduml

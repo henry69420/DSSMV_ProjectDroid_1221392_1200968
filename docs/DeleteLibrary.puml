@@ -1,0 +1,12 @@
+@startuml
+autonumber
+
+participant "User" as User
+participant "System" as System
+
+User -> System: Solicitar Eliminação da Biblioteca X
+System -> User: Pedir Confirmação (Alerta)
+User -> System: Confirmar Eliminação
+System --> User: Confirmação de Remoção
+
+@enduml

@@ -138,6 +138,9 @@ public class NetworkHandler {
     }
 
     private static void writeBody(OutputStream writer, String body){
+        if (body == null || body.isEmpty()) {
+            return;
+        }
         try {
             byte[] dataBytes = body.getBytes("UTF-8");
             writer.write(dataBytes);

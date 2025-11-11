@@ -1,0 +1,28 @@
+@startuml
+left to right direction
+
+actor "User" as User
+
+rectangle "Sistema de Gestão de Bibliotecas" {
+    usecase "UC1: Pesquisar livros" as UC1
+    usecase "UC2: Listar Bibliotecas" as UC2
+    usecase "UC3: Criar biblioteca" as UC3
+    usecase "UC4: Editar biblioteca" as UC4
+    usecase "UC5: Apagar biblioteca" as UC5
+    usecase "UC6: Ver Livros Requisitados" as UC6
+    usecase "UC7: Devolver Livro" as UC7
+    usecase "UC8: Estender Requisição" as UC8
+    usecase "UC9: Ver Mapa de Bibliotecas" as UC9
+}
+
+User -- UC1
+User -- UC2
+User -- UC3
+User -- UC4
+User -- UC5
+User -- UC6
+User -- UC7
+User -- UC8
+User -- UC9
+
+@enduml

@@ -1,0 +1,48 @@
+@startuml
+title UC4 - Atualizar Biblioteca (Update Library)
+autonumber
+
+participant "User" as User
+participant "UpdateLibraryActivity" as UI <<Activity>>
+participant "RequestsService" as Service <<Java Class>>
+participant "NetworkHandler" as Network <<Java Class>>
+database "API/Backend (PUT /library/{id})" as Backend
+
+User -> UI : Altera dados (e.g., OpenTime)
+User -> UI : Clica em "Update"
+UI -> UI : libraryDto = new LibraryDto(...)
+UI -> Service : updateLibrary(libraryId, libraryDto, callback)
+activate Service
+Service -> Service : ExecutorService.execute()
+
+group Requisição Assíncrona (Background Thread)
+    Service -> Service : JsonHandler.serializeLibraryDto2Json(dto)
+    Service -> Network : openPutHttpConnection(url: "/library/{id}", body: JSON)
+    activate Network
+    Network -> Backend : HTTP PUT /library/{id} (Body: JSON)
+    activate Backend
+    Backend --> Network : 200 OK (Updated LibraryDto JSON)
+    deactivate Backend
+    Network --> Service : JSON Response (String)
+    deactivate Network
+    Service -> Service : JsonHandler.deserializeJson2LibraryDto(json)
+
+    alt Success
+        Service -> UI : Handler.post(onSuccess(LibraryDto))
+    else Error
+        Service -> UI : Handler.post(onError(Exception))
+    end
+end
+
+deactivate Service
+
+alt Success
+    UI -> User : Displays Toast("Library updated successfully")
+    UI -> UI : finish()
+else Error
+    UI -> User : Displays Toast("Update failed:...")
+end
+
+deactivate UI
+
+@enduml

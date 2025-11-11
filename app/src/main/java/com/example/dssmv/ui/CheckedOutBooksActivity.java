@@ -214,9 +214,16 @@ public class CheckedOutBooksActivity extends AppCompatActivity implements Checke
         String libraryId = checkout.getBook().getLibrary().getId();
         String isbn = checkout.getBook().getBook().getIsbn();
         String userId = checkout.getUserId();
-        
-        // Format library ID if needed (remove dashes)
-        String formattedLibraryId = libraryId.replace("-", "");
+
+        String formattedLibraryId = libraryId;
+
+        if (libraryId != null && libraryId.length() == 32 && !libraryId.contains("-")) {
+            formattedLibraryId = libraryId.substring(0, 8) + "-" +
+                    libraryId.substring(8, 12) + "-" +
+                    libraryId.substring(12, 16) + "-" +
+                    libraryId.substring(16, 20) + "-" +
+                    libraryId.substring(20, 32);
+        }
         
         RequestsService.checkInBook(formattedLibraryId, isbn, userId, this, new RequestsService.CheckInCallback() {
             @Override

@@ -1,0 +1,10 @@
+@startuml
+autonumber
+
+participant "User" as User
+participant "System" as System
+
+User -> System: Inserir ID de Utilizador
+System --> User: Apresentar Lista de Requisições Ativas
+
+@enduml

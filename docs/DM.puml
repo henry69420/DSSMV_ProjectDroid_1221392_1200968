@@ -1,0 +1,66 @@
+@startuml
+title Modelo de Domínio
+
+hide circle
+hide methods
+skinparam class {
+  BackgroundColor cornsilk
+  BorderColor black
+}
+
+class Library {
+  + id
+  + name
+  + address
+  + openDays
+  + openTime
+  + closeTime
+  --
+}
+
+class Book {
+  + isbn
+  + title
+  + description
+  + numberOfPages
+  + publishDate
+  --
+}
+
+class Author {
+  + id
+  + name
+  + bio
+  + birthDate
+  --
+}
+
+class CoverUrls {
+  + smallUrl
+  + mediumUrl
+  + largeUrl
+  --
+}
+
+class LibraryBook {
+  + available
+  + checkedOut
+  + stock
+  --
+}
+
+class Checkout {
+  + id
+  + userId
+  + dueDate
+  + overdue
+  --
+}
+
+Book "1" -- "1" CoverUrls : tem >
+Book "1" -- "*" Author : escrito por >
+
+Library "1" -- "*" LibraryBook : contém >
+Book "1" -- "1" LibraryBook :  >
+LibraryBook "1" -- "*" Checkout : resulta em >
+@enduml

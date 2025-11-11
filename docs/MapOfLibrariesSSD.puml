@@ -1,0 +1,48 @@
+@startuml
+title UC9 - Ver Mapa de Bibliotecas (Hardware/GPS)
+autonumber
+
+participant "User" as User
+participant "LibraryMapActivity" as UI <<Activity>>
+participant "RequestsService" as Service <<Java Class>>
+participant "Geocoder" as Geo
+participant "FusedLocation" as GPS
+database "API/Backend (GET /library)" as Backend
+
+User -> UI : Clica em "Library Locations"
+activate UI
+UI -> UI : checkLocationPermission()
+UI -> GPS : getLastLocation()
+activate GPS
+GPS --> UI : Retorna Location (lastKnownLocation)
+deactivate GPS
+
+group Carregar Dados e Geocoding (Background Thread)
+    UI -> Service : getLibraries(callback)
+    activate Service
+    Service -> Backend : GET /library (Carrega todas as moradas)
+    deactivate Service
+
+    UI -> UI : geocodeLibraries(libraries)
+    activate UI
+    loop For Each Library
+        UI -> Geo : getFromLocationName(library.address, 1)
+        activate Geo
+        Geo --> UI : Retorna Address (GeoPoint/LatLng)
+        deactivate Geo
+    end
+    UI -> UI : Cria List<MappableLibrary>
+
+    UI -> UI : Handler.post(displayLibrariesOnMap())
+
+    alt Nearest Library Mode
+        UI -> UI : Calcula a biblioteca mais próxima (User.Location vs Mappable.GeoPoint)
+        UI -> User : Apresenta Mapa e Marcador (Mais Próxima)
+    else Show All Mode
+        UI -> User : Apresenta Mapa e Marcadores para todas as MappableLibraries válidas
+    end
+end
+
+deactivate UI
+
+@enduml

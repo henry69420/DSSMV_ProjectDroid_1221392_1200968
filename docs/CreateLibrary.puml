@@ -1,0 +1,9 @@
+@startuml
+autonumber
+
+
+
+User -> System: Submeter Dados da Nova Biblioteca
+System --> User: Confirmação de Criação (Sucesso/Erro)
+
+@enduml

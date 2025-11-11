@@ -1,0 +1,10 @@
+@startuml
+autonumber
+
+participant "User" as User
+participant "System" as System
+
+User -> System: Inserir Termo de Pesquisa
+System --> User: Apresentar Resultados da Pesquisa
+
+@enduml
