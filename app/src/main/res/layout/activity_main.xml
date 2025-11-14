@@ -8,7 +8,6 @@
         android:padding="20dp">
 
 
-    <!-- Título (mantido o mesmo id e texto) -->
     <TextView
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
@@ -23,7 +22,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- traço decorativo sob o título -->
     <View
             android:id="@+id/titleAccent"
             android:layout_width="64dp"
@@ -34,7 +32,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>
 
-    <!-- Cartão central com os botões -->
     <androidx.cardview.widget.CardView
             android:id="@+id/cardContainer"
             android:layout_width="0dp"
@@ -55,7 +52,6 @@
                 android:padding="20dp"
                 android:gravity="center_horizontal">
 
-            <!-- Search Books -->
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSearchBooks"
                     android:layout_width="match_parent"
@@ -70,7 +66,6 @@
                     app:backgroundTint="#22C55E"
                     app:rippleColor="@color/m3_ref_palette_dynamic_neutral10"/>
 
-            <!-- View Libraries -->
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLibraries"
                     android:layout_width="match_parent"
@@ -86,7 +81,6 @@
                     app:backgroundTint="#FB923C"
                     app:rippleColor="@color/m3_ref_palette_dynamic_neutral10"/>
 
-            <!-- Add Library -->
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAddLibrary"
                     android:layout_width="match_parent"
@@ -102,7 +96,6 @@
                     app:backgroundTint="#A855F7"
                     app:rippleColor="@color/m3_ref_palette_dynamic_neutral10"/>
 
-            <!-- Checked Out Books -->
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCheckedOutBooks"
                     android:layout_width="match_parent"
@@ -119,7 +112,6 @@
                     app:rippleColor="@color/m3_ref_palette_dynamic_neutral10"/>
 
 
-            <!-- Library locations(maps) -->
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLibraryLocations"
                     android:layout_width="match_parent"
@@ -138,11 +130,23 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <ImageView
+            android:id="@+id/iseplogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/iseplogo"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/dssmvText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+    />
 
     <TextView
+            android:id="@+id/dssmvText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DSSMV • ISEP"
+            android:text="DSSMV • 1221392 | 1200968 • @ISEP"
             android:textSize="12sp"
             android:textColor="#6B7280"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -152,4 +156,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
